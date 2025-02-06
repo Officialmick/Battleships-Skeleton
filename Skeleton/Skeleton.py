@@ -18,10 +18,16 @@ def GetRowColumn():
             print("Incorrect data type")
 
 
-    Column = int(input("Please enter column: "))
-    while (Column < 0 or Column > 9):
-        print("Out of bounds of the board, please enter again")
-        Column = int(input("Please enter column: "))
+    valid = False
+    while not valid:
+        try:
+            Column = int(input("Please enter column: "))
+            if (Column < 0 or Column > 9):
+                print ("Out of bounds of the board, please enter again")
+            else:
+                valid = True
+        except ValueError:
+            print("Incorrect data type")
 
     print()
     return Row, Column
@@ -37,6 +43,7 @@ def MakePlayerMove(Board, Ships):
     else:
         print("Hit at (" + str(Row) + "," + str(Column) + ").")
         Board[Row][Column] = "h"
+
 
 
 def SetUpBoard():
@@ -141,7 +148,16 @@ def DisplayMenu():
 
 def GetMainMenuChoice():
     print("Please enter your choice: ", end="")
-    Choice = int(input())
+    while True:
+        try:
+            Choice = int(input())
+            if Choice in [1, 2, 9]:
+                break
+            else:
+                print("Please enter a valid choice: ", end="")
+        except ValueError:
+            print("Please enter a valid choice: ", end="")
+  
     print()
     return Choice
 
